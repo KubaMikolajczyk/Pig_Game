@@ -9,13 +9,12 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, previousRoll, winningScore;
+var scores, roundScore, activePlayer, gamePlaying, winningScore;
 
 init();
 
 document.querySelector('.input-score').addEventListener('change', function(e){
   winningScore = e.target.value;
-  console.log(winningScore);
 })
 
 
@@ -44,20 +43,22 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if(gamePlaying){
     //Generate random number
-    dice = Math.floor((Math.random()*6) + 1);
+    dice1 = Math.floor((Math.random()*6) + 1);
+    dice2 = Math.floor((Math.random()*6) + 1);
 
     //Display the result
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = '../jpg/dice-' + dice + '.png';
+    document.getElementById('dice-1').style.display = "block";
+    document.getElementById('dice-2').style.display = "block";
+    document.getElementById('dice-1').src = '../jpg/dice-' + dice1 + '.png';
+    document.getElementById('dice-2').src = '../jpg/dice-' + dice2 + '.png';
 
     //Check if player didnt roll double 6
     checkForDoubleSix();
 
     //Update the round score but only if rolled number is not 1
-    if(dice !== 1){
+    if(dice1 !== 1 && dice2 !== 1){
       //Add score
-      roundScore += dice;
+      roundScore += dice1 + dice2;
       document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
       nextPlayer();
@@ -69,8 +70,9 @@ document.querySelector('.btn-new').addEventListener('click', init);
 
 function nextPlayer(){
   //Next player
-  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
   roundScore = 0;
+  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+
 
   document.getElementById('current-0').textContent = '0';
   document.getElementById('current-1').textContent = '0';
@@ -85,7 +87,8 @@ function init(){
   roundScore = 0;
   gamePlaying = true;
 
-  document.querySelector('.dice').style.display = 'none';
+  document.getElementById('dice-1').style.display = "none";
+  document.getElementById('dice-2').style.display = "none";
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
   document.getElementById('current-0').textContent = '0';
@@ -101,16 +104,14 @@ function init(){
 
 function checkForDoubleSix(){
 
-  //check if previous roll is same as actual roll
-  if(previousRoll === dice && previousRoll === 6){
+  //check if rolled double six
+  if(dice1 === dice2 && dice1 === 6){
+
     //if both are six - wipe the scores
     scores[activePlayer] = 0;
+    roundScore = 0
     //update UI
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
     //change player
-    previousRoll = 0;
     nextPlayer();
-  }
-  //save actual roll as previous roll
-  previousRoll = dice;
-}
+  }}
