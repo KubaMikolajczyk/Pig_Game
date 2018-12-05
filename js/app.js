@@ -52,14 +52,15 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     document.getElementById('dice-1').src = '../jpg/dice-' + dice1 + '.png';
     document.getElementById('dice-2').src = '../jpg/dice-' + dice2 + '.png';
 
-    //Check if player didnt roll double 6
-    checkForDoubleSix();
+
 
     //Update the round score but only if rolled number is not 1
     if(dice1 !== 1 && dice2 !== 1){
       //Add score
       roundScore += dice1 + dice2;
       document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      //Check if player didnt roll double 6
+      checkForDoubleSix();
     } else {
       nextPlayer();
     }
@@ -94,7 +95,7 @@ function init(){
   document.getElementById('current-0').textContent = '0';
   document.getElementById('current-1').textContent = '0';
   document.getElementById('name-0').textContent = 'Player 1';
-  document.getElementById('name-1').textContent = 'Player 1';
+  document.getElementById('name-1').textContent = 'Player 2';
   document.querySelector('.player-0-panel').classList.remove('active');
   document.querySelector('.player-1-panel').classList.remove('active');
   document.querySelector('.player-0-panel').classList.remove('winner');
@@ -106,10 +107,10 @@ function checkForDoubleSix(){
 
   //check if rolled double six
   if(dice1 === dice2 && dice1 === 6){
-
+    console.log('dupa');
     //if both are six - wipe the scores
     scores[activePlayer] = 0;
-    roundScore = 0
+    roundScore = 0;
     //update UI
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
     //change player
