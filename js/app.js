@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll;
 
 init();
 
@@ -38,16 +38,18 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if(gamePlaying){
-    //1. Generate random number
+    //Generate random number
     dice = Math.floor((Math.random()*6) + 1);
 
-    //2. Display the result
+    //Display the result
     var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = '../jpg/dice-' + dice + '.png';
 
+    //Check if player didnt roll double 6
+    checkForDoubleSix();
 
-    //3. Update the round score but only if rolled number is not 1
+    //Update the round score but only if rolled number is not 1
     if(dice !== 1){
       //Add score
       roundScore += dice;
@@ -90,4 +92,20 @@ function init(){
   document.querySelector('.player-0-panel').classList.remove('winner');
   document.querySelector('.player-1-panel').classList.remove('winner');
   document.querySelector('.player-0-panel').classList.add('active');
+}
+
+function checkForDoubleSix(){
+
+  //check if previous roll is same as actual roll
+  if(previousRoll === dice && previousRoll === 6){
+    //if both are six - wipe the scores
+    scores[activePlayer] = 0;
+    //update UI
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    //change player
+    previousRoll = 0;
+    nextPlayer();
+  }
+  //save actual roll as previous roll
+  previousRoll = dice;
 }
