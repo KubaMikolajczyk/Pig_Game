@@ -103,6 +103,42 @@ body {
     font-size: 30px;
 }
 
+input{
+  position: absolute;
+  width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  background: #EB4D4D;
+  border: 1px solid #EB4D4D;
+  font-family: Lato;
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 300;
+  transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+}
+
+.input-score { top: 550px;}
+
+p{
+  position: absolute;
+  width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #555;
+  background: none;
+  border: none;
+  font-family: Lato;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 300;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#win-text{ top: 525px;}
+
 button {
     position: absolute;
     width: 200px;

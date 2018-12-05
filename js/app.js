@@ -9,9 +9,14 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, previousRoll;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll, winningScore;
 
 init();
+
+document.querySelector('.input-score').addEventListener('change', function(e){
+  winningScore = e.target.value;
+  console.log(winningScore);
+})
 
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
@@ -23,7 +28,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
     //check if player won the Game
-    if(scores[activePlayer] >= 100){
+    if(scores[activePlayer] >= winningScore){
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       document.getElementById('name-' + activePlayer).textContent = 'WINNER!';
